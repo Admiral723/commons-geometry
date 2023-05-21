@@ -15,79 +15,62 @@
  * limitations under the License.
  */
 package org.apache.commons.geometry.core;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.apache.commons.geometry.core.partitioning.test.PartitionTestUtils;
 import org.apache.commons.geometry.core.partitioning.test.TestLine;
 import org.apache.commons.geometry.core.partitioning.test.TestPoint1D;
 import org.apache.commons.geometry.core.partitioning.test.TestPoint2D;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 class EmbeddingTest {
-
     @Test
     void testToSubspace_collection_emptyInput() {
         // arrange
         final TestLine line = TestLine.Y_AXIS;
-
         // act
         final List<TestPoint1D> result = line.toSubspace(new ArrayList<>());
-
         // assert
         Assertions.assertEquals(0, result.size());
     }
-
     @Test
     void testToSubspace_collection() {
         // arrange
         final List<TestPoint2D> pts = Arrays.asList(
-                    new TestPoint2D(0, 0),
-                    new TestPoint2D(1, 0.25),
-                    new TestPoint2D(0.5, 1)
-                );
-
+                new TestPoint2D(0, 0),
+                new TestPoint2D(1, 0.25),
+                new TestPoint2D(0.5, 1)
+        );
         final TestLine line = TestLine.Y_AXIS;
-
         // act
         final List<TestPoint1D> result = line.toSubspace(pts);
-
         // assert
         Assertions.assertEquals(3, result.size());
         Assertions.assertEquals(0, result.get(0).getX(), PartitionTestUtils.EPS);
         Assertions.assertEquals(0.25, result.get(1).getX(), PartitionTestUtils.EPS);
         Assertions.assertEquals(1, result.get(2).getX(), PartitionTestUtils.EPS);
     }
-
     @Test
     void testToSpace_collection_emptyInput() {
         // arrange
         final TestLine line = TestLine.Y_AXIS;
-
         // act
         final List<TestPoint2D> result = line.toSpace(new ArrayList<>());
-
         // assert
         Assertions.assertEquals(0, result.size());
     }
-
     @Test
     void testToSpace_collection() {
         // arrange
         final List<TestPoint1D> pts = Arrays.asList(
-                    new TestPoint1D(0),
-                    new TestPoint1D(1),
-                    new TestPoint1D(0.5)
-                );
-
+                new TestPoint1D(0),
+                new TestPoint1D(1),
+                new TestPoint1D(0.5)
+        );
         final TestLine line = TestLine.Y_AXIS;
-
         // act
         final List<TestPoint2D> result = line.toSpace(pts);
-
         // assert
         Assertions.assertEquals(3, result.size());
         PartitionTestUtils.assertPointsEqual(new TestPoint2D(0, 0), result.get(0));

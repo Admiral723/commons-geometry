@@ -15,38 +15,28 @@
  * limitations under the License.
  */
 package org.apache.commons.geometry.core;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 class SizedTest {
-
     @Test
     void testProperties() {
         // arrange
         final Sized finite = new StubSized(1);
         final Sized infinite = new StubSized(Double.POSITIVE_INFINITY);
         final Sized nan = new StubSized(Double.NaN);
-
         // act/assert
         Assertions.assertTrue(finite.isFinite());
         Assertions.assertFalse(finite.isInfinite());
-
         Assertions.assertFalse(infinite.isFinite());
         Assertions.assertTrue(infinite.isInfinite());
-
         Assertions.assertFalse(nan.isFinite());
         Assertions.assertFalse(nan.isInfinite());
     }
-
     private static class StubSized implements Sized {
-
         private final double size;
-
         StubSized(final double size) {
             this.size = size;
         }
-
         @Override
         public double getSize() {
             return size;
